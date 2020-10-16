@@ -28,13 +28,13 @@ class Funcionarios{
 	public function buscarDados()
 	{
 		$res = array();
-		$cmd = $this->PDO->query("SELECT * FROM funcionarios ORDER BY nome_fun");
+		$cmd = $this->PDO->query("SELECT id_fun,nome_fun,data_contratacao,nascimento_fun,cargo,crm,salario,cpf_fun,rg_fun,telefone,email_fun  FROM funcionarios ORDER BY nome_fun");
 		$res = $cmd->fetchAll(PDO::FETCH_ASSOC);
 		Return $res; 
 
 	}
 
-	public function cadastrarPessoas($nome,$contratacao,$nasc,$cargo,$salario,$cpf,$rg,$tel,$email,$senha) #cadastrar funcionario
+	public function cadastrarPessoas($nome,$contratacao,$nasc,$cargo,$crm,$salario,$cpf,$rg,$tel,$email,$senha) #cadastrar funcionario
 	{
 		#verificar se o email já está cadastrado
 		$cmd = $this->PDO->prepare("SELECT id_fun FROM funcionarios WHERE email = :e");
@@ -46,12 +46,13 @@ class Funcionarios{
 		}
 		else #email não existe	
 		{
-			$cmd = $this->PDO->prepare("INSERT INTO funcionarios (nome_fun,data_contratacao,nascimento_fun,cargo,salario,cpf_fun,rg_fun,telefone,email_fun,senha_fun) VALUES (:nome,:contratacao,:nasc,:cargo,:sal,:cpf,:rg,:tel,:email,:senha)");
+			$cmd = $this->PDO->prepare("INSERT INTO funcionarios (nome_fun,data_contratacao,nascimento_fun,cargo,crm,salario,cpf_fun,rg_fun,telefone,email_fun,senha_fun) VALUES (:nome,:contratacao,:nasc,:cargo,:c,:sal,:cpf,:rg,:tel,:email,:senha)");
 
 			$cmd->bindValue(":nome",$nome);
 			$cmd->bindValue(":contratacao",$contratacao);
 			$cmd->bindValue(":nasc",$nasc);
 			$cmd->bindValue(":cargo",$cargo);
+			$cmd->bindValue(":c",$crm);
 			$cmd->bindValue(":sal",$salario);
 			$cmd->bindValue(":cpf",$cpf);
 			$cmd->bindValue(":rg",$rg);

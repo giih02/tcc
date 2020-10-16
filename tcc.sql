@@ -8,6 +8,7 @@ nome_fun varchar(50) not null,
 data_contratacao varchar(10) not null,
 nascimento_fun varchar(10) not null,
 cargo varchar(25) not null,
+crm varchar(10) not null,
 salario varchar(10) not null,
 cpf_fun varchar(20) not null,
 rg_fun varchar(20) not null,
@@ -17,6 +18,10 @@ senha_fun Varchar (32) not null
 );
 SELECT * FROM funcionarios;
 #drop table funcionarios;
+
+UPDATE funcionarios
+SET crm = '87456123'
+WHERE id_fun = 6;
 
 Create table usuario(
 Id Int auto_increment primary key,
@@ -53,37 +58,29 @@ peso Varchar(8) Not Null,
 altura Varchar (8) Not Null, 
 imc Varchar (50) Not Null, 
 TSanguineo char (3) Not Null,
-#medicacao Varchar (100) Not Null,
-#doenca varchar(100) not null,
-img blob
+medicacao Varchar (100), 
+doenca varchar(100),
+alergia varchar(100),
+fumante boolean,
+bebida boolean
 );
-
 SELECT * FROM triagem;
 #drop table triagem;
 
-Create table exames(
+
+Create table exames2(
 Id Int auto_increment primary key,
 rg Varchar (20) Not Null,
+data Varchar (12) Not Null,
+nomeM Varchar (35) Not Null,
+codM Varchar (11) Not Null,
 sangue boolean,
 urina boolean,
 fezes boolean,
-pelvico boolean,
-transvaginal boolean,
-abdominal boolean,
-tireoide boolean,
-mamas boolean,
-ecocardiograma boolean,
-joelho boolean,
-bacia boolean,
-renal boolean,
-coluna boolean,
-funcional boolean,
-angiografia boolean,
-cardiaca boolean,
-outros varchar(50)
+outros varchar(100)
 );
-SELECT * FROM exames WHERE;
-#drop table exames;
+SELECT * FROM exames2;
+#drop table exames2;
 
 Create table perfil(
 Id Int auto_increment primary key,
@@ -92,11 +89,62 @@ codigo varchar(10),
 data varchar(20),
 img longblob
 );
+
 SELECT * FROM perfil;
-drop table perfil;
+#drop table perfil;
 
-#DELETE FROM cadastro WHERE id = 1;
+Create table medico(
+Id Int auto_increment primary key,
+nome varchar(30), 
+crm varchar(8), 
+especialidade varchar(25)
+);
+SELECT * FROM medico;
+#insert into medico (nome,crm,especialidade) values ("Rogerio",12345678,"Clinico geral");
 
-UPDATE perfil # seleciona a tabela
-SET codigo = 1 # novo valor
-WHERE Id = 1; # velho valor
+Create table agendaMedico(
+Id Int auto_increment primary key,
+id_med varchar(8), 
+segunda boolean,
+seg_hora varchar(27),
+terca boolean,
+ter_hora varchar(27),
+quarta boolean,
+qua_hora varchar(27),
+quinta boolean,
+qui_hora varchar(27),
+sexta boolean,
+sex_hora varchar(27)
+);
+ SELECT * FROM agendaMedico;
+#drop table agendaMedico;
+#insert into agendaMedico(id_med,dia,hora) values (1,"Segunda,terça,quarta","8:00,9:00,10:00");
+
+UPDATE consultas SET cod_pac = '1,1,1,0,0,1,1,0,1,0,1,1' WHERE id = '1';
+
+Create table consultas(
+Id Int auto_increment primary key,
+cod_med varchar(15), 
+cod_pac varchar(15),
+dia varchar(15),
+hora varchar(6)
+);
+ SELECT * FROM consultas;
+#drop table consultas;
+
+DELETE FROM consultas
+WHERE Id = 6;
+
+insert into consultas(cod_med,cod_pac,dia,hora) values (87456123,455,"Sexta-feira","15:50");
+
+Create table anotacoes(
+Id Int auto_increment primary key,
+rg Varchar(20) Not Null, 
+Dconsulta varchar(10)not null,
+nomeM Varchar(50) Not Null, 
+reclamacoes Varchar (100) Not Null, 
+considerações Varchar (100) Not Null, 
+medicamentos Varchar (100) Not Null
+);
+SELECT * FROM anotacoes;
+#drop table anotacoes;

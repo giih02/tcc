@@ -1,5 +1,8 @@
 <?php
 ## CONEXÃO ##
+session_start();
+	global $pdo;
+
 try{
 	$pdo = new PDO ("mysql:dbname=tcc;host=localhost","root","");
 }
