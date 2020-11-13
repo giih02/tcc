@@ -6,7 +6,8 @@ session_start();
 <!DOCTYPE html>
 <html lang=”pt-br”>
 <html>
-<h1> Login  </h1>
+
+    <h1> Login  </h1>
 
     <head> 
         <title>  Tela de login </title>
@@ -19,20 +20,60 @@ session_start();
             <!-- ADD CODIGO DO CABEÇALHO -->
         </header>
         <body>
-            <?php
-    if(isset($_POST['rg']))
+            <style type="text/css"> 
+            h1{ 
+              font-family:Didot, serif;
+              text-align: center;
+                }
+
+            label { 
+              font-family:Didot, serif;
+              text-align: center;
+              font-size: 20px;
+          }
+          input { 
+              font-family:Didot, serif;
+              text-align: center;
+              font-size: 16px;
+          }
+          input.enviar{
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+        }
+
+
+            </style>
+           <?php
+    if(isset($_POST['botao']))
     {
         $rg = addslashes($_POST['rg']);
         $senha = addslashes($_POST['senha']);
 
         if(!empty($rg) && !empty($senha) )
         {
-            if(!$p -> login($rg,$senha))
-            {   
-               header("Location: home.php");
-            }
+             $p -> conecta("tcc","localhost","root","");
+            if($p->msgErro == "")
+            {
+                if($p -> login($rg,$senha))
+                {   
+                   header("Location: perfil.php");
+                }
+                
+                if($p->msgErro == !empty($msgErro)){
+                    echo "Senha ou RG incorretos. Tente novamente";
+                }
             
         }
+        else{
+            echo "erro: ".$u->msgErro;
+        }
+    }
         else
         {
             echo "Preencha todos os campos";
@@ -41,31 +82,57 @@ session_start();
 
 
     }?>
-               
-    <table>
-        <tr>
-        <td><a href="home.php"> Início </a></td>
-        <td><a href="agendamento.html"> Agendamentos </a></td>
-        <td><a href="prontuario.html"> Prontuário </a></td>
-        <td><a href="exames.html>"> Exames </a> </td>
-        <td><a href="ajuda.html"> Ajuda </a></td>
-        </tr>
-    </table>
+              
     
-       <form method="POST">
-             <h3> Logue-se </h3>
+       <form method="POST" enctype="multipart/form-data">
+       <script src="jquery.min.js"></script>
+        <center>
 
             <br><label for="rg"> RG: </label>
-            <input type="text" name="rg"  id="rg" placeholder="XX.XXX.XXX-X" >
+            <br><input type="text" name="rg"  id="rg" placeholder="XX.XXX.XXX-X"  OnKeyUp="mascaraData(this);" maxlength="12" >
             
-            <br><div id="senha" value="senha" name="senha"> Senha: <br/>
-            <input type="password" name="senha"></div><br/>  
+            <br><label for="senha"> Senha: 
+            <br><input type="password" name="senha"></div><br/>  
 
 
-                <button type="submit" > Logar </button>
+             <br>   <input type="submit" name="botao" value="Logar-me" class="enviar"> </button>
 
 
+
+</center>
+
+       <script>
+              // colocar os / . etc nos campos automaticamente
+    function mascaraData(campoData){
+              var data = campoData.value;
+              if (data.length == 2){
+                  data = data + '.';
+                  document.forms[0].rg.value = data;
+      return true;              
+              }
+              if (data.length == 6){
+                  data = data + '.';
+                  document.forms[0].rg.value = data;
+                  return true;
+              }
+              if (data.length == 10){
+                  data = data + '-';
+                  document.forms[0].rg.value = data;
+                  return true;
+              }
+         }
+
+    $("#rg").on("input", function(){
+  var regexp = /[^0-9-1-2-3-6-5-4-7-8-.--]/g;
+  if(this.value.match(regexp)){
+    $(this).val(this.value.replace(regexp,''));
+  }
+});
+            
+            </script>
 </form>
+
+
 
     <footer>
         <!-- ADD CODIGO DO RODAPE -->
