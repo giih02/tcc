@@ -45,9 +45,9 @@ class usuarios{
 		}
 	}
 
-	public function endereco($telefone,$cep,$endereco,$bairro,$cidade,$estado,$numero){
+	public function endereco($telefone,$cep,$endereco,$bairro,$cidade,$estado,$numero,$complemento){
 
-			$cmd = $this->PDO->prepare("INSERT INTO endereco (telefone,cep,endereco,bairro,cidade,estado,numero) VALUES (:telefone,:cep,:endereco,:bairro,:cidade,:estado,:numero)");
+			$cmd = $this->PDO->prepare("INSERT INTO endereco (telefone,cep,endereco,bairro,cidade,estado,numero,complemento) VALUES (:telefone,:cep,:endereco,:bairro,:cidade,:estado,:numero,:com)");
 
 			$cmd->bindValue(":telefone",$telefone);
 			$cmd->bindValue(":cep",$cep);
@@ -56,6 +56,7 @@ class usuarios{
 			$cmd->bindValue(":cidade",$cidade);
 			$cmd->bindValue(":estado",$estado);
 			$cmd->bindValue(":numero",$numero);
+			$cmd->bindValue(":com",$complemento);
 			$cmd->execute();
 			return true;
 

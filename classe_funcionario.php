@@ -65,8 +65,26 @@ class Funcionarios{
 	}
 
 	
+
+
+	public function excluir($id_fun) 
+	{
+		$cmd = $this->PDO->prepare("DELETE FROM funcionarios WHERE id_fun = :id_fun");
+		$cmd->bindValue(":id_fun",$id_fun);
+		$cmd->execute();
+
+	}
+
+	public function alterar($id_up)
+	{
+		$res = array();
+		$cmd = $this->PDO->prepare("SELECT * FROM funcionarios WHERE id_fun = :id_fun");
+		$cmd->bindValue(":id_fun",$id_up);
+		$cmd->execute();
+		$res = $cmd->fetch(PDO::FETCH_ASSOC);
+		return $res;
+	}
+
 }
-
-
 
 ?>

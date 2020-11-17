@@ -1,4 +1,4 @@
-<!--AQUI O A ADM FAZ O CADASTRO DOS HORARIOS DOS MEDICOS-->
+<!--AQUI O A ADM FAZ A AGENDA PARA OS AGENDAMENTOS DE EXAMES-->
 <?php
 error_reporting(0);
 session_start();
@@ -14,12 +14,14 @@ $p = new enfermagem("tcc","localhost","root","");
     <head> 
         <title>  Criar agenda médica </title>
         <meta charset= "utf-8" >
+
        
     </head>
-        <header>   <!-- ADD CODIGO DO CABEÇALHO --> </header>
+
+      <header>   <!-- ADD CODIGO DO CABEÇALHO --> </header>
 
         <body>
-       <form method="POST"> <center>
+       <form method="POST"><center>
         <?php
 if(isset($_POST['batata']))
     {
@@ -379,8 +381,8 @@ if(isset($_POST['batata']))
 
             <input type="submit" name="batata" value="submit">
 
-  </section> 
-  </form></center>
+  </section>
+ </form></center>
 </body>
 
       <footer> <!--ADD CODIGO DO RODAPE --> </footer>

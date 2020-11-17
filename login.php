@@ -2,6 +2,7 @@
 require_once 'classe_triagem.php';
 $p = new enfermagem("tcc","localhost","root","");
 session_start();
+error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html lang=”pt-br”>
@@ -101,7 +102,7 @@ session_start();
 
 </center>
 
-       <script>
+                        <script>
               // colocar os / . etc nos campos automaticamente
     function mascaraData(campoData){
               var data = campoData.value;
@@ -123,7 +124,7 @@ session_start();
          }
 
     $("#rg").on("input", function(){
-  var regexp = /[^0-9-1-2-3-6-5-4-7-8-.--]/g;
+  var regexp = /[AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz/*&%$#@!<>,^~}{)(|)}]/g;
   if(this.value.match(regexp)){
     $(this).val(this.value.replace(regexp,''));
   }

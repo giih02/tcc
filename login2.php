@@ -2,6 +2,7 @@
 require_once 'classe_triagem.php';
 $p = new enfermagem("tcc","localhost","root","");
 session_start();
+error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html lang=”pt-br”>
@@ -12,15 +13,43 @@ session_start();
         <title>  Tela de login </title>
         <meta charset= "utf-8" >
         <link rel= "stylesheet" href="css.css" type="text/css">
-        <!-- LINK PARA PHP\JS <link rel="stylesheet" type="text/css" media="screen" href="main.css"> -->
-        <!-- Adicionando Javascript --></head>
+    </head>
 
         <header>
             <!-- ADD CODIGO DO CABEÇALHO -->
         </header>
         <body>
+             <style type="text/css"> 
+            h1{ 
+              font-family:Didot, serif;
+              text-align: center;
+                }
+
+            label { 
+              font-family:Didot, serif;
+              text-align: center;
+              font-size: 20px;
+          }
+          input { 
+              font-family:Didot, serif;
+              text-align: center;
+              font-size: 16px;
+          }
+          input.enviar{
+            background-color: #4CAF50; /* Green */
+            border: none;
+            color: white;
+            padding: 15px 32px;
+            text-align: center;
+            text-decoration: none;
+            display: inline-block;
+            font-size: 20px;
+        }
+
+
+            </style>
             <?php
-    if(isset($_POST['rg_fun']))
+    if(isset($_POST['botao']))
     {
         $rg_fun = addslashes($_POST['rg_fun']);
         $senha_fun = addslashes($_POST['senha_fun']);
@@ -32,7 +61,7 @@ session_start();
         	{
 	            if($p -> login2($rg_fun,$senha_fun))
 	            {   
-	               header("Location: agendamento.php");
+	               header("Location: perfilF.php");
 	            }
 	            
 	            if($p->msgErro == !empty($msgErro)){
@@ -55,16 +84,47 @@ session_start();
               
     
        <form method="POST">
+         <script src="jquery.min.js"></script> <center>
              <h3> Logue-se </h3>
 
             <br><label for="rg_fun"> RG: </label>
-            <input type="text" name="rg_fun"  id="rg_fun" placeholder="XX.XXX.XXX-X" >
+            <br><input type="text" name="rg_fun"  id="rg_fun" placeholder="XX.XXX.XXX-X"  OnKeyUp="mascaraData(this);" maxlength="12" >
             
-            <br><div for="senha_fun"> Senha: <br/>
-            <input type="password" name="senha_fun"></div><br/>  
+            <br><label for="senha"> Senha: 
+            <br><input type="password" name="senha"></div><br/>  
 
 
-                <button type="submit" > Logar </button>
+             <br>   <input type="submit" name="botao" value="Logar-me" class="enviar"> </input>
+             </center>
+                 <script>
+              // colocar os / . etc nos campos automaticamente
+    function mascaraData(campoData){
+              var data = campoData.value;
+              if (data.length == 2){
+                  data = data + '.';
+                  document.forms[0].rg_fun.value = data;
+      return true;              
+              }
+              if (data.length == 6){
+                  data = data + '.';
+                  document.forms[0].rg_fun.value = data;
+                  return true;
+              }
+              if (data.length == 10){
+                  data = data + '-';
+                  document.forms[0].rg_fun.value = data;
+                  return true;
+              }
+         }
+
+    $("#rg_fun").on("input", function(){
+  var regexp = /[AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz/*&%$#@!<>,^~}{)(|)}]/g;
+  if(this.value.match(regexp)){
+    $(this).val(this.value.replace(regexp,''));
+  }
+});
+            
+            </script>
 
 
 </form>

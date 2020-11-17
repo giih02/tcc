@@ -16,19 +16,49 @@ $p = new enfermagem("tcc","localhost","root","");
         <title>  Agendamento de horarios </title>
    
         <meta charset= "utf-8" >
-        <?php $p->buscarDados3(); ?>
-       
+        
      
     </head>
         <header><!--CODIGO DO CABECALHO--></header>
+    
     <body>
+
         <script src="jquery.min.js"></script>
     	<form method="POST" >
+    
+    
+    <?php
+    echo "Você precisa marcar um(a) ".$_SESSION['exame'].". Selecione o local onde você gostaria de realizar esse exame.";
+    echo $_SESSION['maquina']. $_SESSION['funcio'] ;
+    $p->buscarDados4();
+    ?>    
+        <div> <h5> Selecione um local: 
+            <select name="local" id ="local" onchange="show()">
+                <option value="">Selecione</option>
+                <option value="Hospital Geral de Pirajussara" id ="Hospital Geral de Pirajussara"> Hospital Geral de Pirajussara </option>
+                <option value="AME Taboão Da Serra" id ="AME Taboão Da Serra"> AME Taboão Da Serra </option>
+                <option value="Unidade Mista de Taboão da Serra" id ="Unidade Mista de Taboão da Serragin"> Unidade Mista de Taboão da Serra</option>
+                <option value="Centro de Referência à Saude da Mulher" id ="Centro de Referência à Saude da Mulher"> Centro de Referência à Saude da Mulher </option>
+            </select>
 
+             <input name="oi" type="submit" value="Pesquisar"><br>
+    
+    
+    <?php
+   if(isset($_POST["oi"])){
+    $_SESSION['local'] =  $_POST['local'];
 
+      if($_SESSION['funcio'] == "1"){
+        $p->buscarDados4();
+      
+  } 
+    else{
+        echo "O equipamento necessario para o seu exame se encontra indisponivel no momento. Favor escolher novo local para realização do exame";
+    }}
+    ?>    
     	<?php
 
-        echo "Estes são os horarios disponiveis do doutor(a) ".$_SESSION['nomeM']. "entre segunda-feira dia  ".$_SESSION['seg']." e sexta-feira dia " .$_SESSION['sex'];
+       # echo "Estes são os horarios disponiveis do doutor(a) ".$_SESSION['nomeM']. "entre segunda-feira dia  ".$_SESSION['seg']." e sexta-feira dia " .$_SESSION['sex'];
 ####################PUXAR AS VARIAVEIS DAS SESSIONS#######################################################################
     	
         $segunda0 = $_SESSION['segunda'];
@@ -209,7 +239,7 @@ $p = new enfermagem("tcc","localhost","root","");
         var sex = "<?php echo $sexta0;?>";
 
  		 $("#segunda").ready(function(){
-        	if(seg == 0){
+        	if(seg == 0 ){
         		document.getElementById("segunda").disabled = true;
         		document.getElementById("segunda").style.backgroundColor = "#B22222"; //cor VERMELHA do botão caso ele SEJA valido
 
@@ -978,108 +1008,120 @@ $p = new enfermagem("tcc","localhost","root","");
     if(isset($_POST["8:00"])){
              $seg_hora1 = "0".",".$s.",".$t.",".$q.",".$qu.",".$se.",".$set.",".$o.",".$n.",".$d.",".$ul.",".$ds;
              $_SESSION['horaF'] = $seg_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Segunda-feira";
              $_SESSION['horaU'] = "08:00";
              $_SESSION['diaO'] = $_SESSION['seg'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
     
                     } 
         if(isset($_POST["8:30"])){
              $seg_hora1 = $p.","."0".",".$t.",".$q.",".$qu.",".$se.",".$set.",".$o.",".$n.",".$d.",".$ul.",".$ds;
              $_SESSION['horaF'] = $seg_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Segunda-feira";
              $_SESSION['horaU'] = "8:30";
              $_SESSION['diaO'] = $_SESSION['seg'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
         if(isset($_POST["9:00"])){
              $seg_hora1 = $p.",".$s.","."0".",".$q.",".$qu.",".$se.",".$set.",".$o.",".$n.",".$d.",".$ul.",".$ds;
              $_SESSION['horaF'] = $seg_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Segunda-feira";
              $_SESSION['horaU'] = "9:00";
              $_SESSION['diaO'] = $_SESSION['seg'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["10:00"])){
              $seg_hora1 = $p.",".$s.",".$t.","."0".",".$qu.",".$se.",".$set.",".$o.",".$n.",".$d.",".$ul.",".$ds;
              $_SESSION['horaF'] = $seg_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Segunda-feira";
-             $_SESSION['horaU'] = "10:00";
+             $_SESSION['horaU'] = "10:00";$_SESSION['exame'];
              $_SESSION['diaO'] = $_SESSION['seg'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["10:30"])){
              $seg_hora1 = $p.",".$s.",".$t.",".$q.","."0".",".$se.",".$set.",".$o.",".$n.",".$d.",".$ul.",".$ds;
              $_SESSION['horaF'] = $seg_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Segunda-feira";
              $_SESSION['horaU'] = "10:30";
              $_SESSION['diaO'] = $_SESSION['seg'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["11:00"])){
              $seg_hora1 = $p.",".$s.",".$t.",".$q.",".$qu.","."0".",".$set.",".$o.",".$n.",".$d.",".$ul.",".$ds;
              $_SESSION['horaF'] = $seg_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Segunda-feira";
              $_SESSION['horaU'] = "11:00";
              $_SESSION['diaO'] = $_SESSION['seg'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["11:30"])){
              $seg_hora1 = $p.",".$s.",".$t.",".$q.",".$qu.",".$se.","."0".",".$o.",".$n.",".$d.",".$ul.",".$ds;
              $_SESSION['horaF'] = $seg_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Segunda-feira";
              $_SESSION['horaU'] = "11:30";
              $_SESSION['diaO'] = $_SESSION['seg'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["13:00"])){
              $seg_hora1 = $p.",".$s.",".$t.",".$q.",".$qu.",".$se.",".$set.","."0".",".$n.",".$d.",".$ul.",".$ds;
              $_SESSION['horaF'] = $seg_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Segunda-feira";
              $_SESSION['horaU'] = "13:00";
              $_SESSION['diaO'] = $_SESSION['seg'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["13:30"])){
              $seg_hora1 = $p.",".$s.",".$t.",".$q.",".$qu.",".$se.",".$set.",".$o.","."0".",".$d.",".$ul.",".$ds;
              $_SESSION['horaF'] = $seg_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Segunda-feira";
              $_SESSION['horaU'] = "13:30";
              $_SESSION['diaO'] = $_SESSION['seg'];
-              echo "<script> window.location.replace('confirma.php'); </script>";
+              echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["14:00"])){
              $seg_hora1 = $p.",".$s.",".$t.",".$q.",".$qu.",".$se.",".$set.",".$o.",".$n.","."0".",".$ul.",".$ds;
              $_SESSION['horaF'] = $seg_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Segunda-feira";
              $_SESSION['horaU'] = "14:00";
              $_SESSION['diaO'] = $_SESSION['seg'];
-              echo "<script> window.location.replace('confirma.php'); </script>";
+              echo "<script> window.location.replace('confirma2.php'); </script>";
                     }
 
         if(isset($_POST["14:30"])){
              $seg_hora1 = $p.",".$s.",".$t.",".$q.",".$qu.",".$se.",".$set.",".$o.",".$n.",".$d.","."0".",".$ds;
              $_SESSION['horaF'] = $seg_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Segunda-feira";
              $_SESSION['horaU'] = "14:30";
              $_SESSION['diaO'] = $_SESSION['seg'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["15:00"])){
              $seg_hora1 = $p.",".$s.",".$t.",".$q.",".$qu.",".$se.",".$set.",".$o.",".$n.",".$d.",".$ul.","."0";
              $_SESSION['horaF'] = $seg_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Segunda-feira";
              $_SESSION['horaU'] = "15:00";
              $_SESSION['diaO'] = $_SESSION['seg'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         ///////////////////////TERÇA///////////////////////////////////////////////////////////////////////////////////
@@ -1088,107 +1130,119 @@ $p = new enfermagem("tcc","localhost","root","");
         if(isset($_POST["8:00t"])){
 		     $ter_hora1 = "0".",".$ss.",".$tt.",".$qq.",".$quu.",".$see.",".$sett.",".$oo.",".$nn.",".$dd.",".$ull.",".$ddz;
 		     $_SESSION['horaF'] = $ter_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
 		     $_SESSION['diaF'] = "Terça-feira";
 		     $_SESSION['horaU'] = "08:00";
              $_SESSION['diaO'] = $_SESSION['ter'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
         if(isset($_POST["8:30t"])){
              $ter_hora1 = $pp.","."0".",".$tt.",".$qq.",".$quu.",".$see.",".$sett.",".$oo.",".$nn.",".$dd.",".$ull.",".$ddz;
              $_SESSION['horaF'] = $ter_hora1;
+             $_SESSION['local']; $_SESSION['exame'];
              $_SESSION['diaF'] = "Terça-feira";
              $_SESSION['horaU'] = "8:30";
              $_SESSION['diaO'] = $_SESSION['ter'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
         if(isset($_POST["9:00t"])){
              $ter_hora1 = $pp.",".$ss.","."0".",".$qq.",".$quu.",".$see.",".$sett.",".$oo.",".$nn.",".$dd.",".$ull.",".$ddz;
              $_SESSION['horaF'] = $ter_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Terça-feira";
              $_SESSION['horaU'] = "9:00";
              $_SESSION['diaO'] = $_SESSION['ter'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["10:00t"])){
              $ter_hora1 = $pp.",".$ss.",".$tt.","."0".",".$quu.",".$see.",".$sett.",".$oo.",".$nn.",".$dd.",".$ull.",".$ddz;
              $_SESSION['horaF'] = $ter_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Terça-feira";
              $_SESSION['horaU'] = "10:00";
              $_SESSION['diaO'] = $_SESSION['ter'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["10:30t"])){
              $ter_hora1 = $pp.",".$ss.",".$tt.",".$qq.","."0".",".$see.",".$sett.",".$oo.",".$nn.",".$dd.",".$ull.",".$ddz;
              $_SESSION['horaF'] = $ter_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Terça-feira";
              $_SESSION['horaU'] = "10:30";
              $_SESSION['diaO'] = $_SESSION['ter'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["11:00t"])){
              $ter_hora1 = $pp.",".$ss.",".$tt.",".$qq.",".$quu.","."0".",".$sett.",".$oo.",".$nn.",".$dd.",".$ull.",".$ddz;
              $_SESSION['horaF'] = $ter_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Terça-feira";
              $_SESSION['horaU'] = "11:00";
              $_SESSION['diaO'] = $_SESSION['ter'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["11:30t"])){
              $ter_hora1 = $pp.",".$ss.",".$tt.",".$qq.",".$quu.",".$see.","."0".",".$oo.",".$nn.",".$dd.",".$ull.",".$ddz;
              $_SESSION['horaF'] = $ter_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Terça-feira";
              $_SESSION['horaU'] = "11:30";
              $_SESSION['diaO'] = $_SESSION['ter'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["13:00t"])){
              $ter_hora1 = $pp.",".$ss.",".$tt.",".$qq.",".$quu.",".$see.",".$sett.","."0".",".$nn.",".$dd.",".$ull.",".$ddz;
              $_SESSION['horaF'] = $ter_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Terça-feira";
              $_SESSION['horaU'] = "13:00";
              $_SESSION['diaO'] = $_SESSION['ter'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["13:30t"])){
              $ter_hora1 = $pp.",".$ss.",".$tt.",".$qq.",".$quu.",".$see.",".$sett.",".$oo.","."0".",".$dd.",".$ull.",".$ddz;
              $_SESSION['horaF'] = $ter_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Terça-feira";
              $_SESSION['horaU'] = "13:30";
              $_SESSION['diaO'] = $_SESSION['ter'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["14:00t"])){
              $ter_hora1 = $pp.",".$ss.",".$tt.",".$qq.",".$quu.",".$see.",".$sett.",".$oo.",".$nn.","."0".",".$ull.",".$ddz;
              $_SESSION['horaF'] = $ter_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Terça-feira";
              $_SESSION['horaU'] = "14:00";
              $_SESSION['diaO'] = $_SESSION['ter'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     }
 
         if(isset($_POST["14:30t"])){
              $ter_hora1 = $pp.",".$ss.",".$tt.",".$qq.",".$quu.",".$see.",".$sett.",".$oo.",".$nn.",".$dd.","."0".",".$ddz;
              $_SESSION['horaF'] = $ter_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Terça-feira";
              $_SESSION['horaU'] = "14:30";
              $_SESSION['diaO'] = $_SESSION['ter'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["15:00t"])){
              $ter_hora1 = $pp.",".$ss.",".$tt.",".$qq.",".$quu.",".$see.",".$sett.",".$oo.",".$nn.",".$dd.",".$ull.","."0";
              $_SESSION['horaF'] = $ter_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Terça-feira";
              $_SESSION['horaU'] = "15:00";
              $_SESSION['diaO'] = $_SESSION['ter'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     }  
 
 //////////////////////////QUARTA /////////////////////////////////////////////////////////////////////////////////////// 
@@ -1196,106 +1250,118 @@ $p = new enfermagem("tcc","localhost","root","");
         if(isset($_POST["8:00q"])){
              $qua_hora1 = "0".",".$sq.",".$tq.",".$qqq.",".$quq.",".$seq.",".$setq.",".$oq.",".$nq.",".$dq.",".$ulq.",".$ddq;
              $_SESSION['horaF'] = $qua_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quarta-feira";
              $_SESSION['horaU'] = "08:00";
              $_SESSION['diaO'] = $_SESSION['qua'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
         if(isset($_POST["8:30q"])){
             $qua_hora1 = $pq.","."0".",".$tq.",".$qqq.",".$quq.",".$seq.",".$setq.",".$oq.",".$nq.",".$dq.",".$ulq.",".$ddq;             $_SESSION['horaF'] = $qua_hora1;
+            $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quarta-feira";
              $_SESSION['horaU'] = "8:30";
              $_SESSION['diaO'] = $_SESSION['qua'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
         if(isset($_POST["9:00q"])){
               $qua_hora1 = $pq.",".$sq.","."0".",".$qqq.",".$quq.",".$seq.",".$setq.",".$oq.",".$nq.",".$dq.",".$ulq.",".$ddq;
              $_SESSION['horaF'] = $qua_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quarta-feira";
              $_SESSION['horaU'] = "9:00";
              $_SESSION['diaO'] = $_SESSION['qua'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["10:00q"])){
               $qua_hora1 = $pq.",".$sq.",".$tq.","."0".",".$quq.",".$seq.",".$setq.",".$oq.",".$nq.",".$dq.",".$ulq.",".$ddq;
              $_SESSION['horaF'] = $qua_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quarta-feira";
              $_SESSION['horaU'] = "10:00";
              $_SESSION['diaO'] = $_SESSION['qua'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["10:30q"])){
               $qua_hora1 = $pq.",".$sq.",".$tq.",".$qqq.","."0".",".$seq.",".$setq.",".$oq.",".$nq.",".$dq.",".$ulq.",".$ddq;
              $_SESSION['horaF'] = $qua_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quarta-feira";
              $_SESSION['horaU'] = "10:30";
              $_SESSION['diaO'] = $_SESSION['qua'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["11:00q"])){
               $qua_hora1 = $pq.",".$sq.",".$tq.",".$qqq.",".$quq.","."0".",".$setq.",".$oq.",".$nq.",".$dq.",".$ulq.",".$ddq;
              $_SESSION['horaF'] = $qua_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quarta-feira";
              $_SESSION['horaU'] = "11:00";
              $_SESSION['diaO'] = $_SESSION['qua'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["11:30q"])){
               $qua_hora1 = $pq.",".$sq.",".$tq.",".$qqq.",".$quq.",".$seq.","."0".",".$oq.",".$nq.",".$dq.",".$ulq.",".$ddq;
              $_SESSION['horaF'] = $qua_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quarta-feira";
              $_SESSION['horaU'] = "11:30";
              $_SESSION['diaO'] = $_SESSION['qua'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["13:00q"])){
               $qua_hora1 = $pq.",".$sq.",".$tq.",".$qqq.",".$quq.",".$seq.",".$setq.","."0".",".$nq.",".$dq.",".$ulq.",".$ddq;
              $_SESSION['horaF'] = $qua_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quarta-feira";
              $_SESSION['horaU'] = "13:00";
              $_SESSION['diaO'] = $_SESSION['qua'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["13:30q"])){
               $qua_hora1 = $pq.",".$sq.",".$tq.",".$qqq.",".$quq.",".$seq.",".$setq.",".$oq.","."0".",".$dq.",".$ulq.",".$ddq;
              $_SESSION['horaF'] = $qua_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quarta-feira";
              $_SESSION['horaU'] = "13:30";
              $_SESSION['diaO'] = $_SESSION['qua'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["14:00q"])){
              $qua_hora1 = $pq.",".$sq.",".$tq.",".$qqq.",".$quq.",".$seq.",".$setq.",".$oq.",".$nq.","."0".",".$ulq.",".$ddq;
              $_SESSION['horaF'] = $qua_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quarta-feira";
              $_SESSION['horaU'] = "14:00";
              $_SESSION['diaO'] = $_SESSION['qua'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     }
 
         if(isset($_POST["14:30q"])){
               $qua_hora1 = $pq.",".$sq.",".$tq.",".$qqq.",".$quq.",".$seq.",".$setq.",".$oq.",".$nq.",".$dq.","."0".",".$ddq;
              $_SESSION['horaF'] = $qua_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quarta-feira";
              $_SESSION['horaU'] = "14:30";
              $_SESSION['diaO'] = $_SESSION['qua'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["15:00q"])){
               $qua_hora1 = $pq.",".$sq.",".$tq.",".$qqq.",".$quq.",".$seq.",".$setq.",".$oq.",".$nq.",".$dq.",".$ulq.","."0";
              $_SESSION['horaF'] = $qua_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quarta-feira";
              $_SESSION['horaU'] = "15:00";
              $_SESSION['diaO'] = $_SESSION['qua'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
 /////////////////QUINTA ///////////////////////////////////////////////////////////////////////////////////////////////
@@ -1303,107 +1369,119 @@ $p = new enfermagem("tcc","localhost","root","");
         if(isset($_POST["8:00w"])){
              $qui_hora1 = "0".",".$sw.",".$tw.",".$qw.",".$quw.",".$sew.",".$setw.",".$ow.",".$nw.",".$dw.",".$ulw.",".$ddw;
              $_SESSION['horaF'] = $qui_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quinta-feira";
              $_SESSION['horaU'] = "08:00";
              $_SESSION['diaO'] = $_SESSION['qui'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
         if(isset($_POST["8:30w"])){
              $qui_hora1 = $pw.","."0".",".$tw.",".$qw.",".$quw.",".$sew.",".$setw.",".$ow.",".$nw.",".$dw.",".$ulw.",".$ddw;
              $_SESSION['horaF'] = $qui_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quinta-feira";
              $_SESSION['horaU'] = "8:30";
               $_SESSION['diaO'] = $_SESSION['qui'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
         if(isset($_POST["9:00w"])){
              $qui_hora1 = $pw.",".$sw.","."0".",".$qw.",".$quw.",".$sew.",".$setw.",".$ow.",".$nw.",".$dw.",".$ulw.",".$ddw;
              $_SESSION['horaF'] = $qui_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quinta-feira";
              $_SESSION['horaU'] = "9:00";
               $_SESSION['diaO'] = $_SESSION['qui'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["10:00w"])){
              $qui_hora1 = $pw.",".$sw.",".$tw.","."0".",".$quw.",".$sew.",".$setw.",".$ow.",".$nw.",".$dw.",".$ulw.",".$ddw;
              $_SESSION['horaF'] = $qui_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quinta-feira";
              $_SESSION['horaU'] = "10:00";
               $_SESSION['diaO'] = $_SESSION['qui'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["10:30w"])){
              $qui_hora1 = $pw.",".$sw.",".$tw.",".$qw.","."0".",".$sew.",".$setw.",".$ow.",".$nw.",".$dw.",".$ulw.",".$ddw;
              $_SESSION['horaF'] = $qui_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quinta-feira";
              $_SESSION['horaU'] = "10:30";
               $_SESSION['diaO'] = $_SESSION['qui'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["11:00w"])){
              $qui_hora1 = $pw.",".$sw.",".$tw.",".$qw.",".$quw.","."0".",".$setw.",".$ow.",".$nw.",".$dw.",".$ulw.",".$ddw;
              $_SESSION['horaF'] = $qui_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quinta-feira";
              $_SESSION['horaU'] = "11:00";
               $_SESSION['diaO'] = $_SESSION['qui'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["11:30w"])){
             $qui_hora1 = $pw.",".$sw.",".$tw.",".$qw.",".$quw.",".$sew.","."0".",".$ow.",".$nw.",".$dw.",".$ulw.",".$ddw;
              $_SESSION['horaF'] = $qui_hora1;
+             $_SESSION['local'] ;$_SESSION['exame'];
              $_SESSION['diaF'] = "Quinta-feira";
              $_SESSION['horaU'] = "11:30";
               $_SESSION['diaO'] = $_SESSION['qui'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["13:00w"])){
              $qui_hora1 = $pw.",".$sw.",".$tw.",".$qw.",".$quw.",".$sew.",".$setw.","."0".",".$nw.",".$dw.",".$ulw.",".$ddw;
              $_SESSION['horaF'] = $qui_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quinta-feira";
              $_SESSION['horaU'] = "13:00";
               $_SESSION['diaO'] = $_SESSION['qui'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["13:30w"])){
             $qui_hora1 = $pw.",".$sw.",".$tw.",".$qw.",".$quw.",".$sew.",".$setw.",".$ow.","."0".",".$dw.",".$ulw.",".$ddw;
              $_SESSION['horaF'] = $qui_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quinta-feira";
              $_SESSION['horaU'] = "13:30";
               $_SESSION['diaO'] = $_SESSION['qui'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["14:00w"])){
             $qui_hora1 = $pw.",".$sw.",".$tw.",".$qw.",".$quw.",".$sew.",".$setw.",".$ow.",".$nw.","."0".",".$ulw.",".$ddw;
              $_SESSION['horaF'] = $qui_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quinta-feira";
              $_SESSION['horaU'] = "14:00";
               $_SESSION['diaO'] = $_SESSION['qui'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     }
 
         if(isset($_POST["14:30w"])){
             $qui_hora1 = $pw.",".$sw.",".$tw.",".$qw.",".$quw.",".$sew.",".$setw.",".$ow.",".$nw.",".$dw.","."0".",".$ddw;
              $_SESSION['horaF'] = $qui_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quinta-feira";
              $_SESSION['horaU'] = "14:30";
               $_SESSION['diaO'] = $_SESSION['qui'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["15:00w"])){
             $qui_hora1 = $pw.",".$sw.",".$tw.",".$qw.",".$quw.",".$sew.",".$setw.",".$ow.",".$nw.",".$dw.",".$ulw.","."0";
              $_SESSION['horaF'] = $qui_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Quinta-feira";
              $_SESSION['horaU'] = "15:00";
               $_SESSION['diaO'] = $_SESSION['qui'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
 //////////////////SEXTA /////////////////////////////////////////////////////////////////////////////////////////////////
@@ -1411,107 +1489,121 @@ $p = new enfermagem("tcc","localhost","root","");
         if(isset($_POST["8:00s"])){
             $sex_hora1 = "0".",".$ss.",".$ts.",".$qs.",".$qus.",".$ses.",".$sets.",".$os.",".$ns.",".$ds.",".$uls.",".$dds;
              $_SESSION['horaF'] = $sex_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Sexta-feira";
              $_SESSION['horaU'] = "08:00";
               $_SESSION['diaO'] = $_SESSION['sex'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
         if(isset($_POST["8:30s"])){
             $sex_hora1 = $ps.","."0".",".$ts.",".$qs.",".$qus.",".$ses.",".$sets.",".$os.",".$ns.",".$ds.",".$uls.",".$dds;
              $_SESSION['horaF'] = $sex_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Sexta-feira";
              $_SESSION['horaU'] = "8:30";
              $_SESSION['diaO'] = $_SESSION['sex'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
         if(isset($_POST["9:00s"])){
             $sex_hora1 = $ps.",".$ss.","."0".",".$qs.",".$qus.",".$ses.",".$sets.",".$os.",".$ns.",".$ds.",".$uls.",".$dds;
              $_SESSION['horaF'] = $sex_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Sexta-feira";
              $_SESSION['horaU'] = "9:00";
              $_SESSION['diaO'] = $_SESSION['sex'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["10:00s"])){
             $sex_hora1 = $ps.",".$ss.",".$ts.","."0".",".$qus.",".$ses.",".$sets.",".$os.",".$ns.",".$ds.",".$uls.",".$dds;
              $_SESSION['horaF'] = $sex_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Sexta-feira";
              $_SESSION['horaU'] = "10:00";
              $_SESSION['diaO'] = $_SESSION['sex'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["10:30s"])){
             $sex_hora1 = $ps.",".$ss.",".$ts.",".$qs.","."0".",".$ses.",".$sets.",".$os.",".$ns.",".$ds.",".$uls.",".$dds;
              $_SESSION['horaF'] = $sex_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Sexta-feira";
              $_SESSION['horaU'] = "10:30";
              $_SESSION['diaO'] = $_SESSION['sex'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["11:00s"])){
             $sex_hora1 = $ps.",".$ss.",".$ts.",".$qs.",".$qus.","."0".",".$sets.",".$os.",".$ns.",".$ds.",".$uls.",".$dds;
              $_SESSION['horaF'] = $sex_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Sexta-feira";
              $_SESSION['horaU'] = "11:00";
              $_SESSION['diaO'] = $_SESSION['sex'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["11:30s"])){
            $sex_hora1 = $ps.",".$ss.",".$ts.",".$qs.",".$qus.",".$ses.","."0".",".$os.",".$ns.",".$ds.",".$uls.",".$dds;
              $_SESSION['horaF'] = $sex_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Sexta-feira";
              $_SESSION['horaU'] = "11:30";
              $_SESSION['diaO'] = $_SESSION['sex'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["13:00s"])){
            $sex_hora1 = $ps.",".$ss.",".$ts.",".$qs.",".$qus.",".$ses.",".$sets.","."0".",".$ns.",".$ds.",".$uls.",".$dds;
              $_SESSION['horaF'] = $sex_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Sexta-feira";
              $_SESSION['horaU'] = "13:00";
              $_SESSION['diaO'] = $_SESSION['sex'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["13:30s"])){
             $sex_hora1 = $ps.",".$ss.",".$ts.",".$qs.",".$qus.",".$ses.",".$sets.",".$os.","."0".",".$ds.",".$uls.",".$dds;
              $_SESSION['horaF'] = $sex_hora1;
+             $_SESSION['local'];$_SESSION['exame'];
              $_SESSION['diaF'] = "Sexta-feira";
              $_SESSION['horaU'] = "13:30";
              $_SESSION['diaO'] = $_SESSION['sex'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["14:00s"])){
             $sex_hora1 = $ps.",".$ss.",".$ts.",".$qs.",".$qus.",".$ses.",".$sets.",".$os.",".$ns.","."0".",".$uls.",".$dds;
              $_SESSION['horaF'] = $sex_hora1;
+             $_SESSION['local'] ;$_SESSION['exame'];
              $_SESSION['diaF'] = "Sexta-feira";
              $_SESSION['horaU'] = "14:00";
              $_SESSION['diaO'] = $_SESSION['sex'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     }
 
         if(isset($_POST["14:30s"])){
             $sex_hora1 = $ps.",".$ss.",".$ts.",".$qs.",".$qus.",".$ses.",".$sets.",".$os.",".$ns.",".$ds.","."0".",".$dds;
              $_SESSION['horaF'] = $sex_hora1;
+             $_SESSION['local'];
+             $_SESSION['exame'];
              $_SESSION['diaF'] = "Sexta-feira";
              $_SESSION['horaU'] = "14:30";
              $_SESSION['diaO'] = $_SESSION['sex'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
 
         if(isset($_POST["15:00s"])){
             $sex_hora1 = $ps.",".$ss.",".$ts.",".$qs.",".$qus.",".$ses.",".$sets.",".$os.",".$ns.",".$ds.",".$uls.","."0";
              $_SESSION['horaF'] = $sex_hora1;
+             $_SESSION['local'];
+             $_SESSION['exame'];
              $_SESSION['diaF'] = "Sexta-feira";
              $_SESSION['horaU'] = "15:00";
              $_SESSION['diaO'] = $_SESSION['sex'];
-             echo "<script> window.location.replace('confirma.php'); </script>";
+             echo "<script> window.location.replace('confirma2.php'); </script>";
                     } 
     
 	?>

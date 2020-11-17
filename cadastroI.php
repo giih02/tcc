@@ -2,6 +2,7 @@
 <?php
 require_once 'classe_usuario.php';
 $p = new usuarios("tcc","localhost","root","");
+error_reporting(0);
 ?>
 <!DOCTYPE html>
 <html lang=”pt-br”>
@@ -89,6 +90,8 @@ $p = new usuarios("tcc","localhost","root","");
     </header>
 
   <body>
+            <form method="POST" >
+              <script src="jquery.min.js"></script>
     <?php
    
         
@@ -130,10 +133,11 @@ $p = new usuarios("tcc","localhost","root","");
         $cidade = addslashes($_POST['cidade']);
         $estado = addslashes($_POST['uf']);
         $numero = addslashes($_POST['numero']);
+        $complemento = addslashes($_POST['complemento']);
        
         if(!empty($cep) && !empty($endereco) && !empty($bairro) && !empty($cidade) && !empty($estado) && !empty($numero)&& !empty($telefone))
         {
-            if(!$p->endereco($telefone,$cep,$endereco,$bairro,$cidade,$estado,$numero))
+            if(!$p->endereco($telefone,$cep,$endereco,$bairro,$cidade,$estado,$numero,$complemento))
             {
                  echo "oi";
             }
@@ -157,11 +161,9 @@ $p = new usuarios("tcc","localhost","root","");
                
     <table>
         <tr>
-        <td><a href="home.html"> Início </a></td>
-        <td><a href="agendamento.html"> Agendamentos </a></td>
-        <td><a href="prontuario.html"> Prontuário </a></td>
-        <td><a href="exames.html>"> Exames </a> </td>
-        <td><a href="ajuda.html"> Ajuda </a></td>
+        <td><a href="home.php"> Pagina inicial </a></td>
+        <td><a href="perfil.php"> Meu perfil </a></td>
+        <td><a href="ubs.php"> Procurar UBS </a></td>
         </tr>
     </table>
     
@@ -171,14 +173,129 @@ $p = new usuarios("tcc","localhost","root","");
             <br><label for="nome">Nome: </label>
             <input type="text" name="nome"  id="nome" placeholder="Ex: Paula Gomes" >
 
+            <script>
+                $("#nome").on("input", function(){
+              var regexp = /[1234567890*&%$#@!]/g;
+              if(this.value.match(regexp)){
+                $(this).val(this.value.replace(regexp,''));
+              }
+            });
+            
+            </script>
+
             <br><label for="cpf"> CPF: </label>
-            <input type="text" name="cpf" id="cpf" placeholder="Ex: XXX.XXX.XXX-XX" >
+            <input type="text" name="cpf" id="cpf" placeholder="Ex: XXX.XXX.XXX-XX" onchange="validarCPF()" maxlength="11" pattern="([0-9]{3})" >
+
+
+            <script>
+        // validação de cpf
+               function validarCPF(cpf) { 
+                var cpf = document.getElementById('cpf').value;
+                cpf = cpf.replace(/\D+/g, '');  
+                
+                if(cpf == '') return false; 
+                // Elimina CPFs invalidos conhecidos  
+                if (cpf.length != 11 || 
+                  cpf == "00000000000" || 
+                  cpf == "11111111111" || 
+                  cpf == "22222222222" || 
+                  cpf == "33333333333" || 
+                  cpf == "44444444444" || 
+                  cpf == "55555555555" || 
+                  cpf == "66666666666" || 
+                  cpf == "77777777777" || 
+                  cpf == "88888888888" || 
+                  cpf == "99999999999")
+                      
+                // Valida 1o digito 
+                add = 0;  
+                for (i=0; i < 9; i ++)    
+                  add += parseInt(cpf.charAt(i)) * (10 - i);  
+                  rev = 11 - (add % 11);  
+                  if (rev == 10 || rev == 11)   
+                    rev = 0;  
+                  if (rev != parseInt(cpf.charAt(9)))   
+                        
+                // Valida 2o digito 
+                add = 0;  
+                for (i = 0; i < 10; i ++)   
+                  add += parseInt(cpf.charAt(i)) * (11 - i);  
+                rev = 11 - (add % 11);  
+                if (rev == 10 || rev == 11) 
+                  rev = 0;  
+                
+                if (rev != parseInt(cpf.charAt(10)))
+                   alert("CPF inválido");  
+
+                return true;
+              }
+
+               $("#cpf").on("input", function(){
+          var regexp = /[AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz/*&%$#@!]/g;
+          if(this.value.match(regexp)){
+            $(this).val(this.value.replace(regexp,''));
+          }
+        });
+            </script>
 
             <br><label for="rg"> RG: </label>
-            <input type="text" name="rg"  id="rg" placeholder="Ex: YY.YYY.YYY-Y" >
+            <input type="text" name="rg"  id="rg" placeholder="Ex: YY.YYY.YYY-Y" OnKeyUp="mascaraData(this);" maxlength="12">
+            <script>
+              // colocar os / . etc nos campos automaticamente
+    function mascaraData(campoData){
+              var data = campoData.value;
+              if (data.length == 2){
+                  data = data + '.';
+                  document.forms[0].rg.value = data;
+      return true;              
+              }
+              if (data.length == 6){
+                  data = data + '.';
+                  document.forms[0].rg.value = data;
+                  return true;
+              }
+              if (data.length == 10){
+                  data = data + '-';
+                  document.forms[0].rg.value = data;
+                  return true;
+              }
+         
+
+        $("#rg").on("input", function(){
+      var regexp = /[AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz]/g;
+      if(this.value.match(regexp)){
+        $(this).val(this.value.replace(regexp,''));
+      }
+}); }
+            
+            </script>
 
             <br><label for="nasc">Data de nascimento: </label>
-            <input id="nasc" type="text" name = "nasc" placeholder="00/00/0000">
+            <input id="nasc" type="text" name = "nasc" placeholder="00/00/0000" OnKeyUp="mescaraData(this);"maxlength="10">
+
+             <script>
+              // colocar os / . etc nos campos automaticamente
+    function mescaraData(campoData){
+              var data = campoData.value;
+              if (data.length == 2){
+                  data = data + '/';
+                  document.forms[0].nasc.value = data;
+      return true;              
+              }
+              if (data.length == 5){
+                  data = data + '/';
+                  document.forms[0].nasc.value = data;
+                  return true;
+              }
+             
+    $("#nasc").on("input", function(){
+  var regexp = /[AaBbCcDdEeFfGgHhIiJjKkLlMmNnOoPpQqRrSsTtUuVvWwXxYyZz*&%$#@!]/g;
+  if(this.value.match(regexp)){
+    $(this).val(this.value.replace(regexp,''));
+  }
+});}
+            
+            </script>
 
             <br><label for="sexo">Sexo </label>
             <select name="sexo">
@@ -192,6 +309,8 @@ $p = new usuarios("tcc","localhost","root","");
             <br><label for="senha"> senha: </label>
             <input type="password" name="senha" id="senha">
             </select>
+
+           
 
             <p><a href="login.php"> Já tenho cadastro </p></a>
 
@@ -214,7 +333,8 @@ $p = new usuarios("tcc","localhost","root","");
         <label>Estado:
         <input name="uf" type="text" id="uf" size="2" /></label><br />
         <label>numero:
-        <input name="numero" type="text" id="numero" size="4" placeholder="396"  /></label><br />
+        <input name="numero" type="text" id="numero" size="4" placeholder="396"/></label><br />
+        <input name="complemento" type="text" id="complemento" size="4"/></label><br/>
         <input type="submit" value="Cadastrar">
         </section>     
     
